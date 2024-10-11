@@ -29,7 +29,7 @@ public final class Rect {
     public Vector2 getSize() { return new Vector2(w, h); }
 
     public void setPosition(Vector2 position) { x = position.getX(); y = position.getY(); }
-    public void setSize(Vector2 size) { x = size.getX(); y = size.getY(); }
+    public void setSize(Vector2 size) { w = size.getX(); h = size.getY(); }
 
     public void setX(double x) { this.x = x; }
     public void setY(double y) { this.y = y; }

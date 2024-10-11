@@ -4,6 +4,8 @@ import gametemplate.gameobject.BouncingBall;
 import gametemplate.gameobject.GameObject;
 import gametemplate.gameobject.MaxObjectsException;
 import gametemplate.gameobject.StaticBrick;
+import gametemplate.gameobject.TetrisPiece;
+import gametemplate.gameobject.TetrisPiece.Style;
 import gametemplate.graphics.Rect;
 import gametemplate.graphics.Vector2;
 import javafx.animation.AnimationTimer;
@@ -64,9 +66,8 @@ public class Main extends Application {
 
     private void buildObjects() throws MaxObjectsException {
         try {
-            new BouncingBall();
-            new StaticBrick(new Rect(20,400,300,10));
-            new StaticBrick(new Rect(400,200,200,30));
+            TetrisPiece activePiece = new TetrisPiece(Style.LINE, false);
+            activePiece.setGridPosition(4, 4);
         } catch (MaxObjectsException e) {
             throw new MaxObjectsException("Increase MAX_OBJECTS");
         }

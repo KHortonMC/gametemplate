@@ -4,6 +4,7 @@ module com.gametemplate.gametemplate {
 
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
+    requires javafx.graphics;
 
     opens gametemplate to javafx.fxml;
     exports gametemplate;
