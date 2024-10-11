@@ -1,7 +1,7 @@
 package gametemplate.graphics;
 
 public final class Rect {
-    public static int EDGE = 4;
+    public static int EDGE = 5;
 
     double x = 0.0;
     double y = 0.0;
