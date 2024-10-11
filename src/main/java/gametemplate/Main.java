@@ -48,7 +48,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        Rect.EDGE_COLLISION = false;
         buildObjects();
 
         AnimationTimer gameLoop = new AnimationTimer() {

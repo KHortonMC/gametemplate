@@ -1,5 +1,6 @@
 package gametemplate.gameobject;
 
+import gametemplate.Tetris;
 import gametemplate.graphics.Drawable;
 import gametemplate.graphics.Rect;
 import gametemplate.graphics.Vector2;
@@ -7,7 +8,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 public abstract class GameObject implements Drawable {
     private static class ObjectList {
-        static int MAX_OBJECTS = 100;
+        static int MAX_OBJECTS = Tetris.GRID_HEIGHT * Tetris.GRID_WIDTH;
         static int INVALID_ID = -1;
         int lastID = 0;
         GameObject[] gameObjects = null;
@@ -93,7 +94,7 @@ public abstract class GameObject implements Drawable {
                 && otherObject.bounding != null) {
                 collides = this.bounding.doesCollide(otherObject.bounding);
                 if (collides) {
-                    System.out.println("Collision between object " + this.myID + " " + this.bounding.toString() + " and " + otherObject.myID + " " + otherObject.bounding.toString() + " using edge collision: " + Rect.EDGE_COLLISION);
+                    System.out.println("Collision between object " + this.myID + " " + this.bounding.toString() + " and " + otherObject.myID + " " + otherObject.bounding.toString() + " using edge collision: " + Rect.EDGE);
                     return otherObject;
                 }
             }

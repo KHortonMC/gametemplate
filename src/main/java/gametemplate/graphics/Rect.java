@@ -1,8 +1,7 @@
 package gametemplate.graphics;
 
 public final class Rect {
-    public static boolean EDGE_COLLISION = false;
-    public static int EDGE_WIGGLE = 1;
+    public static int EDGE = 4;
 
     double x = 0.0;
     double y = 0.0;
@@ -48,18 +47,10 @@ public final class Rect {
     }
 
     public boolean doesCollide(Rect other) {
-        if (EDGE_COLLISION) {
-            return this.x <= other.x + other.w
-                && this.x + this.w >= other.x
-                && this.y <= other.y + other.h 
-                && this.y + this.h >= other.y;
-        }
-        else { // only overlap collision
-            return this.x < other.x + other.w - 1
-                && this.x + this.w - 1 > other.x
-                && this.y < other.y + other.h - 1
-                && this.y + this.h - 1 > other.y;
-        }
+        return this.x <= other.x + other.w - EDGE
+            && this.x + this.w - EDGE >= other.x
+            && this.y <= other.y + other.h - EDGE
+            && this.y + this.h - EDGE >= other.y;
     }
 
     // chatGPT was used to solve for collisionSide

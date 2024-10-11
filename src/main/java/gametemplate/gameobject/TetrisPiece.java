@@ -51,7 +51,7 @@ public class TetrisPiece extends GameObject  {
 
         switch (style) {
             case Style.LINE:
-                block.setColor(Color.BISQUE);
+                block.setColor(flipped ? Color.BISQUE : Color.DARKORCHID);
                 layout[0][1] = new TetrisBlock(block);
                 layout[1][1] = new TetrisBlock(block);
                 layout[2][1] = new TetrisBlock(block);
@@ -59,7 +59,7 @@ public class TetrisPiece extends GameObject  {
                 break;
 
             case Style.SQUARE:
-                block.setColor(Color.DARKCYAN);
+                block.setColor(flipped ? Color.DARKCYAN : Color.DARKGOLDENROD);
                 layout[1][1] = new TetrisBlock(block);
                 layout[1][2] = new TetrisBlock(block);
                 layout[2][1] = new TetrisBlock(block);
@@ -67,7 +67,7 @@ public class TetrisPiece extends GameObject  {
                 break;    
                 
             case Style.TEE:
-                block.setColor(Color.HOTPINK);
+                block.setColor(flipped ? Color.HOTPINK : Color.HONEYDEW);
                 layout[1][1] = new TetrisBlock(block);
                 layout[1][2] = new TetrisBlock(block);
                 layout[1][3] = new TetrisBlock(block);
@@ -75,7 +75,7 @@ public class TetrisPiece extends GameObject  {
                 break;
 
             case Style.ELBOW:
-                block.setColor(Color.MAGENTA);
+                block.setColor(flipped ? Color.MAGENTA : Color.LIGHTSKYBLUE);
                 layout[1][1] = new TetrisBlock(block);
                 layout[1][2] = new TetrisBlock(block);
                 layout[2][2] = new TetrisBlock(block);
@@ -96,7 +96,7 @@ public class TetrisPiece extends GameObject  {
 
         if (flipped) {
             for (int r = 0; r < NUM_BLOCKS; r++) {
-                for (int c = 0; c < NUM_BLOCKS; c++) {
+                for (int c = 0; c < NUM_BLOCKS/2; c++) {
                     block = layout[r][c];
                     layout[r][c] = layout[r][NUM_BLOCKS - (1+c)];
                     layout[r][NUM_BLOCKS - (1+c)] = block;
