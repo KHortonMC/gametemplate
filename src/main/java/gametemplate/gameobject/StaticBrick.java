@@ -1,6 +1,5 @@
 package gametemplate.gameobject;
 
-import gametemplate.Main;
 import gametemplate.graphics.Rect;
 import gametemplate.graphics.Rectangle;
 import gametemplate.graphics.Vector2;

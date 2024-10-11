@@ -11,7 +11,8 @@ public class TetrisPiece extends GameObject  {
     private static final int NUM_BLOCKS = 4;
     TetrisBlock[][] layout = new TetrisBlock[NUM_BLOCKS][NUM_BLOCKS];
     TetrisBlock[][] rotateLayout = new TetrisBlock[NUM_BLOCKS][NUM_BLOCKS];
-    double x, y;
+    double x = 0.0;
+    double y = 0.0;
 
     public enum Style {
         LINE,
@@ -23,27 +24,24 @@ public class TetrisPiece extends GameObject  {
 
     Style style = Style.LINE;
     boolean flipped = false;
+    Random random = null;
 
-    public TetrisPiece(Style style, boolean flipped) throws MaxObjectsException {
+    public TetrisPiece() throws MaxObjectsException {
         super();
-        this.style = style;
-        this.flipped = flipped;
-        this.assembleBlocks();
-        this.setGridPosition(4, 0, this.layout);
+        this.random = new Random();
+        newRandomPiece();
     }
 
     public Vector2 getPosition() { return new Vector2(x, y); }
 
     private void newRandomPiece() {
-        System.out.println("Creating a new piece!");
-        Random random = new Random();
         this.style = Style.values()[random.nextInt(5)];
         this.flipped = random.nextBoolean();
         try {
             this.assembleBlocks();
         }
         catch (MaxObjectsException e) {
-
+            System.out.println(e.getMessage());
         }
         this.setGridPosition(4,0, layout);
     }
@@ -119,12 +117,31 @@ public class TetrisPiece extends GameObject  {
         }
     }
 
+    public double checkCollisionDistance(TetrisBlock[][] layout) {
+        GameObject collision = null;
+        double dist = 0.0;
+        for (int r = 0; r < NUM_BLOCKS; r++) {
+            for (int c = 0; c < NUM_BLOCKS; c++) {
+                if (layout[r][c] != null) {
+                    collision = layout[r][c].findCollision();
+                    if (collision != null) {
+                        dist = collision.bounding.getY() - layout[r][c].bounding.getY();
+                    }
+                }
+            }
+        } 
+        return dist;
+    }
+
     public GameObject checkCollision(TetrisBlock[][] layout) {
         GameObject collision = null;
         for (int r = 0; r < NUM_BLOCKS; r++) {
             for (int c = 0; c < NUM_BLOCKS; c++) {
                 if (layout[r][c] != null) {
                     collision = layout[r][c].findCollision();
+                    if (collision != null) {
+                        return collision;
+                    }
                 }
             }
         }
@@ -206,15 +223,12 @@ public class TetrisPiece extends GameObject  {
         this.y += deltaY;
 
         setGridPosition(this.x, this.y, this.layout);
-        collision = checkCollision(layout);
+        double collisionDist = checkCollisionDistance(layout);
 
-        if (collision != null) {
-            System.out.println("Collision object:" + collision.bounding);
-            System.out.println(this.toString());
-
+        if (collisionDist != 0.0) {
             // we impacted something in our drop, so we're done moving
             // and since it's a vertical drop, reset our piece
-            this.y = y;
+            this.y -= (Tetris.SCALE - collisionDist) / Tetris.SCALE;
             setGridPosition(this.x, this.y, this.layout);
             giveBlocks();
             TetrisPile.clearLines();

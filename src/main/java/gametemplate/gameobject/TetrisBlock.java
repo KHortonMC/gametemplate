@@ -31,8 +31,16 @@ public class TetrisBlock extends GameObject {
         bounding = brick.getRect();
     }
 
+    public static Vector2 getCoordinatePosition(double x, double y) {
+        return new Vector2(Tetris.X_ORIGIN + Tetris.SCALE * x, Tetris.Y_ORIGIN + Tetris.SCALE * y);
+    }
+
+    public static Vector2 getGridPosition(double x, double y) {
+        return new Vector2((x - Tetris.X_ORIGIN) / Tetris.SCALE, (y - Tetris.Y_ORIGIN) / Tetris.SCALE);
+    }
+
     public void setGridPosition(double x, double y) {
-        brick.setPosition(new Vector2(Tetris.X_ORIGIN + Tetris.SCALE * x, Tetris.Y_ORIGIN + Tetris.SCALE * y));        
+        brick.setPosition(TetrisBlock.getCoordinatePosition(x, y));    
         bounding = brick.getRect();
     }
 

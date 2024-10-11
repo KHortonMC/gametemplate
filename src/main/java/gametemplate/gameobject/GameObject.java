@@ -69,7 +69,7 @@ public abstract class GameObject implements Drawable {
         }
     }
 
-    public GameObject() throws MaxObjectsException {
+    protected GameObject() throws MaxObjectsException {
         if (objects.addObject(this) == ObjectList.INVALID_ID) {
             throw new MaxObjectsException();
         }

@@ -1,13 +1,7 @@
 package gametemplate;
 
-import gametemplate.gameobject.BouncingBall;
 import gametemplate.gameobject.GameObject;
 import gametemplate.gameobject.MaxObjectsException;
-import gametemplate.gameobject.StaticBrick;
-import gametemplate.gameobject.TetrisBlock;
-import gametemplate.gameobject.TetrisPiece;
-import gametemplate.gameobject.TetrisPile;
-import gametemplate.gameobject.TetrisPiece.Style;
 import gametemplate.graphics.Rect;
 import gametemplate.graphics.Vector2;
 import javafx.animation.AnimationTimer;
