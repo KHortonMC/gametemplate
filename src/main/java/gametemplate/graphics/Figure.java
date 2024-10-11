@@ -20,6 +20,8 @@ public abstract class Figure implements Drawable {
     public Vector2 getSize() { return rect.getSize(); }
     public void setColor(Color color) { this.color = color; }
     public Color getColor() { return this.color; }
+    public Rect getRect() { return this.rect; }
+    public void setRect(Rect rect) { this.rect = rect; }
 
     public String toString() {
         return this.rect.toString();

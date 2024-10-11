@@ -5,7 +5,7 @@ import gametemplate.graphics.Rect;
 import gametemplate.graphics.Vector2;
 import javafx.scene.canvas.GraphicsContext;
 
-public class GameObject implements Drawable {
+public abstract class GameObject implements Drawable {
     private static class ObjectList {
         static int MAX_OBJECTS = 100;
         static int INVALID_ID = -1;
@@ -46,7 +46,7 @@ public class GameObject implements Drawable {
 
     int myID = -1;
     static ObjectList objects = null;
-    Vector2 getPosition() { return null; }
+    public abstract Vector2 getPosition();
     Rect bounding = null;
 
     public static void initialize() {
@@ -75,6 +75,10 @@ public class GameObject implements Drawable {
         }
     }
 
+    public void destruc() {
+        objects.removeObject(this);
+    }
+
     protected GameObject findCollision() {
         if (this.bounding == null) return null;
 
@@ -89,6 +93,7 @@ public class GameObject implements Drawable {
                 && otherObject.bounding != null) {
                 collides = this.bounding.doesCollide(otherObject.bounding);
                 if (collides) {
+                    System.out.println("Collision between object " + this.myID + " " + this.bounding.toString() + " and " + otherObject.myID + " " + otherObject.bounding.toString() + " using edge collision: " + Rect.EDGE_COLLISION);
                     return otherObject;
                 }
             }

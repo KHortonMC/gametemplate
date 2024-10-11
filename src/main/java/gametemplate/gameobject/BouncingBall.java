@@ -26,6 +26,8 @@ public class BouncingBall extends GameObject {
         this.bounding.setPosition(ball.getPosition());
     }
 
+    public Vector2 getPosition() { return ball.getPosition(); }
+
     @Override
     public void update() {
         bump(velocity);

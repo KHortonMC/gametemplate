@@ -21,30 +21,32 @@ public class StaticBrick extends GameObject {
         brick = new Rectangle(rect);
         brick.setColor(Color.CORNFLOWERBLUE);
     }
+
+    public Vector2 getPosition() { return brick.getPosition(); }
     
     @Override
     public void update() {
-        brick.setPosition(brick.getPosition().add(Main.getScreenDelta()));
-        this.bounding.setPosition(brick.getPosition());
+        // brick.setPosition(brick.getPosition().add(Main.getScreenDelta()));
+        // this.bounding.setPosition(brick.getPosition());
 
-        GameObject collisionObject = findCollision();
-        if (collisionObject instanceof BouncingBall 
-            && Main.getScreenDelta().magnitude() > 0.0) {
+        // GameObject collisionObject = findCollision();
+        // if (collisionObject instanceof BouncingBall 
+        //     && Main.getScreenDelta().magnitude() > 0.0) {
 
-            Rect.Collision collision = this.bounding.collisionSide(collisionObject.bounding);
-            Vector2 direction = null;
+        //     Rect.Collision collision = this.bounding.collisionSide(collisionObject.bounding);
+        //     Vector2 direction = null;
 
-            switch (collision)
-            {
-                case Rect.Collision.TOP: direction = new Vector2(0,-5); break;
-                case Rect.Collision.BOTTOM: direction = new Vector2(0,5); break;
-                case Rect.Collision.LEFT: direction = new Vector2(-5,0); break;
-                case Rect.Collision.RIGHT: direction = new Vector2(5,0); break;
-                default: break;
-            }
+        //     switch (collision)
+        //     {
+        //         case Rect.Collision.TOP: direction = new Vector2(0,-5); break;
+        //         case Rect.Collision.BOTTOM: direction = new Vector2(0,5); break;
+        //         case Rect.Collision.LEFT: direction = new Vector2(-5,0); break;
+        //         case Rect.Collision.RIGHT: direction = new Vector2(5,0); break;
+        //         default: break;
+        //     }
 
-            ((BouncingBall)collisionObject).bump(direction);
-        }
+        //     ((BouncingBall)collisionObject).bump(direction);
+        // }
     }
 
     @Override

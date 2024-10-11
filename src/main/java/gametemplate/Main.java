@@ -4,7 +4,9 @@ import gametemplate.gameobject.BouncingBall;
 import gametemplate.gameobject.GameObject;
 import gametemplate.gameobject.MaxObjectsException;
 import gametemplate.gameobject.StaticBrick;
+import gametemplate.gameobject.TetrisBlock;
 import gametemplate.gameobject.TetrisPiece;
+import gametemplate.gameobject.TetrisPile;
 import gametemplate.gameobject.TetrisPiece.Style;
 import gametemplate.graphics.Rect;
 import gametemplate.graphics.Vector2;
@@ -52,6 +54,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        Rect.EDGE_COLLISION = false;
         buildObjects();
 
         AnimationTimer gameLoop = new AnimationTimer() {
@@ -65,29 +68,27 @@ public class Main extends Application {
     }
 
     private void buildObjects() throws MaxObjectsException {
-        try {
-            TetrisPiece activePiece = new TetrisPiece(Style.LINE, false);
-            activePiece.setGridPosition(4, 4);
-        } catch (MaxObjectsException e) {
-            throw new MaxObjectsException("Increase MAX_OBJECTS");
-        }
+        Tetris.buildObjects();
     }
 
     private void handleKeyPress(KeyEvent event) {
         switch (event.getCode()) {
             case LEFT:
-                screenDelta.setX(-2);
+                screenDelta.setX(-1);
                 break;
             case RIGHT:
-                screenDelta.setX(2);
+                screenDelta.setX(1);
                 break;
             case UP:
-                screenDelta.setY(-2);
+                // do nothing for up
                 break;
             case DOWN:
-                screenDelta.setY(2);
+                screenDelta.setY(1);
                 break;
             case SPACE:
+                if (Tetris.activePiece != null) {
+                    Tetris.activePiece.rotate();
+                }
             default:
                 break;
         }
@@ -102,7 +103,7 @@ public class Main extends Application {
                 screenDelta.setX(0);
                 break;
             case UP:
-                screenDelta.setY(0);
+                // do nothing on up
                 break;
             case DOWN:
                 screenDelta.setY(0);

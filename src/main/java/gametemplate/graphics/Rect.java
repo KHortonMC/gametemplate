@@ -1,6 +1,9 @@
 package gametemplate.graphics;
 
 public final class Rect {
+    public static boolean EDGE_COLLISION = false;
+    public static int EDGE_WIGGLE = 1;
+
     double x = 0.0;
     double y = 0.0;
     double w = 0.0;
@@ -45,10 +48,18 @@ public final class Rect {
     }
 
     public boolean doesCollide(Rect other) {
-        return this.x <= other.x + other.w
-            && this.x + this.w >= other.x
-            && this.y <= other.y + other.h 
-            && this.y + this.h >= other.y;
+        if (EDGE_COLLISION) {
+            return this.x <= other.x + other.w
+                && this.x + this.w >= other.x
+                && this.y <= other.y + other.h 
+                && this.y + this.h >= other.y;
+        }
+        else { // only overlap collision
+            return this.x < other.x + other.w - 1
+                && this.x + this.w - 1 > other.x
+                && this.y < other.y + other.h - 1
+                && this.y + this.h - 1 > other.y;
+        }
     }
 
     // chatGPT was used to solve for collisionSide
@@ -57,22 +68,24 @@ public final class Rect {
 
         double leftCollision = Math.abs((this.x + this.w) - other.x);    // right
         double rightCollision = Math.abs(this.x - (other.x + other.w));  // left
-        double topCollision = Math.abs((this.y + this.h) - other.y);     // bottom
-        double bottomCollision = Math.abs(this.y - (other.y + other.h)); // top
+        double bottomCollision = Math.abs((this.y + this.h) - other.y);  // bottom
+        double topCollision = Math.abs(this.y - (other.y + other.h));    // top
 
         // Find the minimum distance
         double minDistance = Math.min(Math.min(leftCollision, rightCollision), 
                                         Math.min(topCollision, bottomCollision));
 
         // Determine which side caused the collision
-        if (minDistance == leftCollision) {
-            return Collision.RIGHT;
-        } else if (minDistance == rightCollision) {
-            return Collision.LEFT;
-        } else if (minDistance == topCollision) {
+        if (minDistance == bottomCollision) {
             return Collision.BOTTOM;
-        } else {
+        }
+        else if (minDistance == topCollision) {
             return Collision.TOP;
+        }
+        else if (minDistance == leftCollision) {
+            return Collision.RIGHT;
+        } else {
+            return Collision.LEFT;
         }
     }
 
