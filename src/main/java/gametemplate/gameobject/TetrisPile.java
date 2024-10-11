@@ -8,9 +8,14 @@ public class TetrisPile {
     private TetrisPile() {}
 
     public static void addBlock(TetrisBlock block) {
-        int c = (int) ((block.getPosition().getX() - Tetris.X_ORIGIN) / Tetris.SCALE);
-        int r = (int) ((block.getPosition().getY() - Tetris.Y_ORIGIN) / Tetris.SCALE);
-        System.out.println("Adding a block at " + r + " " + c);
+        double x = (Math.ceil(block.getPosition().getX()) - Tetris.X_ORIGIN) / Tetris.SCALE;
+        double y = (Math.ceil(block.getPosition().getY()) - Tetris.Y_ORIGIN) / Tetris.SCALE;
+
+        int c = (int)x;
+        int r = (int)y;
+
+        System.out.println("Adding a block at " + r + " " + c + " with coords " + block.getPosition().toString());
+
         if (r >= Tetris.GRID_HEIGHT) {
             r = Tetris.GRID_HEIGHT - 1;
         }
