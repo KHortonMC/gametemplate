@@ -52,11 +52,10 @@ public class TetrisPile {
 
     private static void clearRow(int r) {
         for (int i = 0; i < Tetris.GRID_WIDTH; i++) {
-            // delete and free our blocks
-            // TODO: convert the blocks to a reusable pile
-            // so that we don't invoke the garbage collector
+            // free up our blocks to become new blocks
             if (blockPile[r][i] != null) {
-                blockPile[r][i].destruc();
+                blockPile[r][i].setActive(false);
+                blockPile[r][i].setVisible(false);
                 blockPile[r][i] = null;
             }
         }

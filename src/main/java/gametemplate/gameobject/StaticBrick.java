@@ -12,6 +12,8 @@ public class StaticBrick extends GameObject {
     public StaticBrick() throws MaxObjectsException {
         super();
         brick = new Rectangle();
+        this.isActive = true;
+        this.isVisible = true;
     }
 
     public StaticBrick(Rect rect) throws MaxObjectsException {
@@ -19,6 +21,8 @@ public class StaticBrick extends GameObject {
         bounding = rect;
         brick = new Rectangle(rect);
         brick.setColor(Color.CORNFLOWERBLUE);
+        this.isActive = true;
+        this.isVisible = true;
     }
 
     public Vector2 getPosition() { return brick.getPosition(); }

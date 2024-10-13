@@ -2,6 +2,7 @@ package gametemplate;
 
 import gametemplate.gameobject.MaxObjectsException;
 import gametemplate.gameobject.StaticBrick;
+import gametemplate.gameobject.TetrisBlock;
 import gametemplate.gameobject.TetrisPiece;
 import gametemplate.graphics.Rect;
 
@@ -21,6 +22,10 @@ public class Tetris {
 
     public static void buildObjects() throws MaxObjectsException {
           try {
+            for (int i = 0; i < GRID_WIDTH * GRID_HEIGHT; i++) {
+                new TetrisBlock();
+            }
+
             activePiece = new TetrisPiece();
 
             Rect gamebounds = new Rect(X_ORIGIN, Y_ORIGIN, GRID_WIDTH * SCALE, GRID_HEIGHT * SCALE);

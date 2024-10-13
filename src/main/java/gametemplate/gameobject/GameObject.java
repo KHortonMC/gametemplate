@@ -7,12 +7,11 @@ import gametemplate.graphics.Vector2;
 import javafx.scene.canvas.GraphicsContext;
 
 public abstract class GameObject implements Drawable {
-    private static class ObjectList {
-        static int MAX_OBJECTS = Tetris.GRID_HEIGHT * Tetris.GRID_WIDTH;
+    protected static class ObjectList {
+        static int MAX_OBJECTS = Tetris.GRID_HEIGHT * Tetris.GRID_WIDTH + 20;
         static int INVALID_ID = -1;
         int lastID = 0;
         GameObject[] gameObjects = null;
-
         ObjectList() {
             gameObjects = new GameObject[ObjectList.MAX_OBJECTS];
         }
@@ -50,13 +49,23 @@ public abstract class GameObject implements Drawable {
     public abstract Vector2 getPosition();
     Rect bounding = null;
 
+    boolean isActive = false;
+    public boolean getActive() { return this.isActive; }
+    public void setActive(boolean active) { this.isActive = active;}
+
+    boolean isVisible = false;
+    public boolean getVisible() { return this.isVisible; }
+    public void setVisible(boolean visible) { this.isVisible = visible; }
+
+
     public static void initialize() {
         objects = new ObjectList();
     }
 
     public static void updateAll() {
         for (int i = 0; i < objects.gameObjects.length; i++) {
-            if (objects.gameObjects[i] != null) {
+            if (objects.gameObjects[i] != null
+                && objects.gameObjects[i].isActive) {
                 objects.gameObjects[i].update();
             }
         }
@@ -64,7 +73,8 @@ public abstract class GameObject implements Drawable {
 
     public static void drawAll(GraphicsContext gc) {
         for (int i = 0; i < objects.gameObjects.length; i++) {
-            if (objects.gameObjects[i] != null) {
+            if (objects.gameObjects[i] != null
+                && objects.gameObjects[i].isVisible) {
                 objects.gameObjects[i].draw(gc);
             }
         }
@@ -76,12 +86,13 @@ public abstract class GameObject implements Drawable {
         }
     }
 
-    public void destruc() {
+    public void destruct() {
         objects.removeObject(this);
     }
 
     protected GameObject findCollision() {
-        if (this.bounding == null) return null;
+        if (this.bounding == null
+            || this.isActive == false) return null;
 
         GameObject otherObject = null;
         boolean collides = false;
@@ -90,6 +101,7 @@ public abstract class GameObject implements Drawable {
             // only compare to valid objects that aren't us!
             otherObject = objects.gameObjects[i];
             if (otherObject != null 
+                && otherObject.isActive == true
                 && otherObject != this
                 && otherObject.bounding != null) {
                 collides = this.bounding.doesCollide(otherObject.bounding);

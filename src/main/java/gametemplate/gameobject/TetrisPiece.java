@@ -28,6 +28,8 @@ public class TetrisPiece extends GameObject  {
 
     public TetrisPiece() throws MaxObjectsException {
         super();
+        this.isActive = true;
+        this.isVisible = false;
         this.random = new Random();
         newRandomPiece();
     }
@@ -37,57 +39,73 @@ public class TetrisPiece extends GameObject  {
     private void newRandomPiece() {
         this.style = Style.values()[random.nextInt(5)];
         this.flipped = random.nextBoolean();
-        try {
-            this.assembleBlocks();
-        }
-        catch (MaxObjectsException e) {
-            System.out.println(e.getMessage());
-        }
+        this.assembleBlocks();
         this.setGridPosition(4,0, layout);
     }
 
-    private void assembleBlocks() throws MaxObjectsException {
-        TetrisBlock block = new TetrisBlock();
+    void setColor(Color color) {
+        for (int r = 0; r < NUM_BLOCKS; r++) {
+            for (int c = 0; c < NUM_BLOCKS; c++) {
+                if (layout[r][c] != null) {
+                    layout[r][c].setColor(color);
+                }
+            }
+        }
+    }
 
+    
+    void flipBlock() {
+        TetrisBlock block = null;
+
+        for (int r = 0; r < NUM_BLOCKS; r++) {
+            for (int c = 0; c < NUM_BLOCKS/2; c++) {
+                block = layout[r][c];
+                layout[r][c] = layout[r][NUM_BLOCKS - (1+c)];
+                layout[r][NUM_BLOCKS - (1+c)] = block;
+            }
+        }
+    }
+
+    private void assembleBlocks() {
         switch (style) {
             case Style.LINE:
-                block.setColor(flipped ? Color.BISQUE : Color.DARKORCHID);
-                layout[0][1] = new TetrisBlock(block);
-                layout[1][1] = new TetrisBlock(block);
-                layout[2][1] = new TetrisBlock(block);
-                layout[3][1] = block;
+                layout[0][1] = TetrisBlock.getFreeBlock();
+                layout[1][1] = TetrisBlock.getFreeBlock();
+                layout[2][1] = TetrisBlock.getFreeBlock();
+                layout[3][1] = TetrisBlock.getFreeBlock();
+                setColor(flipped ? Color.BISQUE : Color.DARKORCHID);
                 break;
 
             case Style.SQUARE:
-                block.setColor(flipped ? Color.DARKCYAN : Color.DARKGOLDENROD);
-                layout[1][1] = new TetrisBlock(block);
-                layout[1][2] = new TetrisBlock(block);
-                layout[2][1] = new TetrisBlock(block);
-                layout[2][2] = block;
+                layout[1][1] = TetrisBlock.getFreeBlock();
+                layout[1][2] = TetrisBlock.getFreeBlock();
+                layout[2][1] = TetrisBlock.getFreeBlock();
+                layout[2][2] = TetrisBlock.getFreeBlock();
+                setColor(flipped ? Color.DARKCYAN : Color.DARKGOLDENROD);
                 break;    
                 
             case Style.TEE:
-                block.setColor(flipped ? Color.HOTPINK : Color.HONEYDEW);
-                layout[1][1] = new TetrisBlock(block);
-                layout[1][2] = new TetrisBlock(block);
-                layout[1][3] = new TetrisBlock(block);
-                layout[2][2] = block;
+                layout[1][1] = TetrisBlock.getFreeBlock();
+                layout[1][2] = TetrisBlock.getFreeBlock();
+                layout[1][3] = TetrisBlock.getFreeBlock();
+                layout[2][2] = TetrisBlock.getFreeBlock();
+                setColor(flipped ? Color.HOTPINK : Color.HONEYDEW);
                 break;
 
             case Style.ELBOW:
-                block.setColor(flipped ? Color.MAGENTA : Color.LIGHTSKYBLUE);
-                layout[1][1] = new TetrisBlock(block);
-                layout[1][2] = new TetrisBlock(block);
-                layout[2][2] = new TetrisBlock(block);
-                layout[3][2] = block;
+                layout[1][1] = TetrisBlock.getFreeBlock();
+                layout[1][2] = TetrisBlock.getFreeBlock();
+                layout[2][2] = TetrisBlock.getFreeBlock();
+                layout[3][2] = TetrisBlock.getFreeBlock();
+                setColor(flipped ? Color.MAGENTA : Color.LIGHTSKYBLUE);
                 break;        
                 
             case Style.ZEE:
-                block.setColor(Color.THISTLE);
-                layout[1][1] = new TetrisBlock(block);
-                layout[1][2] = new TetrisBlock(block);
-                layout[2][2] = new TetrisBlock(block);
-                layout[2][3] = block;
+                layout[1][1] = TetrisBlock.getFreeBlock();
+                layout[1][2] = TetrisBlock.getFreeBlock();
+                layout[2][2] = TetrisBlock.getFreeBlock();
+                layout[2][3] = TetrisBlock.getFreeBlock();
+                setColor(flipped ? Color.THISTLE : Color.PAPAYAWHIP);
                 break;   
  
                 default:
@@ -95,13 +113,7 @@ public class TetrisPiece extends GameObject  {
         }
 
         if (flipped) {
-            for (int r = 0; r < NUM_BLOCKS; r++) {
-                for (int c = 0; c < NUM_BLOCKS/2; c++) {
-                    block = layout[r][c];
-                    layout[r][c] = layout[r][NUM_BLOCKS - (1+c)];
-                    layout[r][NUM_BLOCKS - (1+c)] = block;
-                }
-            }
+            flipBlock();
         }
     }
 

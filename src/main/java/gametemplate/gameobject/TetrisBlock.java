@@ -9,6 +9,18 @@ import javafx.scene.paint.Color;
 public class TetrisBlock extends GameObject {
     Rectangle brick = null;
 
+    public static TetrisBlock getFreeBlock() {
+        for (int i = 0; i < objects.gameObjects.length; i++) {
+            if (objects.gameObjects[i] instanceof TetrisBlock
+                && !objects.gameObjects[i].isActive) {
+                objects.gameObjects[i].setActive(true);
+                objects.gameObjects[i].setVisible(true);
+                return (TetrisBlock)objects.gameObjects[i];
+            }
+        }
+        return null;
+    }
+
     public TetrisBlock() throws MaxObjectsException {
         brick = new Rectangle();
         brick.setSize(new Vector2(Tetris.SCALE, Tetris.SCALE));
