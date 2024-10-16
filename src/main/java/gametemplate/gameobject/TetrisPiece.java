@@ -1,10 +1,8 @@
 package gametemplate.gameobject;
-
-import java.util.Random;
-
 import gametemplate.Main;
 import gametemplate.Tetris;
 import gametemplate.graphics.Vector2;
+import java.util.Random;
 import javafx.scene.paint.Color;
 
 public class TetrisPiece extends GameObject  {
@@ -53,7 +51,6 @@ public class TetrisPiece extends GameObject  {
         }
     }
 
-    
     void flipBlock() {
         TetrisBlock block = null;
 
@@ -157,14 +154,6 @@ public class TetrisPiece extends GameObject  {
                 }
             }
         }
-        // clear any self-collisions
-        // for (int r = 0; r < NUM_BLOCKS; r++) {
-        //     for (int c = 0; c < NUM_BLOCKS; c++) {
-        //         if (layout[r][c] == collision) {
-        //             collision = null; 
-        //         }
-        //     }
-        // }
         return collision;
     }
 
@@ -178,7 +167,6 @@ public class TetrisPiece extends GameObject  {
             }
         }
     }
-
     
     public void rotate() {
         // the algorithm goes: this new object's last matrix

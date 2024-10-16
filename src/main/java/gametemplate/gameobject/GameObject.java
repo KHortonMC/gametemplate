@@ -25,13 +25,17 @@ public abstract class GameObject implements Drawable {
 
     public static void updateAll() {
         for (GameObject o : objects) {
-            o.update();
+            if (o.isActive) {
+                o.update();
+            }
         }
     }
 
     public static void drawAll(GraphicsContext gc) {
         for (GameObject o : objects) {
-            o.draw(gc);
+            if (o.isVisible) {
+                o.draw(gc);
+            }
         }
     }
 

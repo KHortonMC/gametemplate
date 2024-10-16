@@ -12,6 +12,7 @@ public class StaticBrick extends GameObject {
     public StaticBrick() {
         super();
         brick = new Rectangle();
+        brick.setColor(Color.CORNFLOWERBLUE);
         this.isActive = true;
         this.isVisible = true;
     }
