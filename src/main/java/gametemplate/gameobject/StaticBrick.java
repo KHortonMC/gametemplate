@@ -9,14 +9,14 @@ import javafx.scene.paint.Color;
 public class StaticBrick extends GameObject {
     Rectangle brick = null;
 
-    public StaticBrick() throws MaxObjectsException {
+    public StaticBrick() {
         super();
         brick = new Rectangle();
         this.isActive = true;
         this.isVisible = true;
     }
 
-    public StaticBrick(Rect rect) throws MaxObjectsException {
+    public StaticBrick(Rect rect) {
         super();
         bounding = rect;
         brick = new Rectangle(rect);
@@ -29,27 +29,6 @@ public class StaticBrick extends GameObject {
     
     @Override
     public void update() {
-        // brick.setPosition(brick.getPosition().add(Main.getScreenDelta()));
-        // this.bounding.setPosition(brick.getPosition());
-
-        // GameObject collisionObject = findCollision();
-        // if (collisionObject instanceof BouncingBall 
-        //     && Main.getScreenDelta().magnitude() > 0.0) {
-
-        //     Rect.Collision collision = this.bounding.collisionSide(collisionObject.bounding);
-        //     Vector2 direction = null;
-
-        //     switch (collision)
-        //     {
-        //         case Rect.Collision.TOP: direction = new Vector2(0,-5); break;
-        //         case Rect.Collision.BOTTOM: direction = new Vector2(0,5); break;
-        //         case Rect.Collision.LEFT: direction = new Vector2(-5,0); break;
-        //         case Rect.Collision.RIGHT: direction = new Vector2(5,0); break;
-        //         default: break;
-        //     }
-
-        //     ((BouncingBall)collisionObject).bump(direction);
-        // }
     }
 
     @Override

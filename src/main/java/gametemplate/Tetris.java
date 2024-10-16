@@ -1,6 +1,5 @@
 package gametemplate;
 
-import gametemplate.gameobject.MaxObjectsException;
 import gametemplate.gameobject.StaticBrick;
 import gametemplate.gameobject.TetrisBlock;
 import gametemplate.gameobject.TetrisPiece;
@@ -20,22 +19,17 @@ public class Tetris {
     @SuppressWarnings("exports")
     public static TetrisPiece activePiece = null;
 
-    public static void buildObjects() throws MaxObjectsException {
-          try {
-            for (int i = 0; i < GRID_WIDTH * GRID_HEIGHT; i++) {
-                new TetrisBlock();
-            }
+    public static void buildObjects() {
+        for (int i = 0; i < GRID_WIDTH * GRID_HEIGHT; i++) {
+            new TetrisBlock();
+        }
 
-            activePiece = new TetrisPiece();
+        activePiece = new TetrisPiece();
 
-            Rect gamebounds = new Rect(X_ORIGIN, Y_ORIGIN, GRID_WIDTH * SCALE, GRID_HEIGHT * SCALE);
+        Rect gamebounds = new Rect(X_ORIGIN, Y_ORIGIN, GRID_WIDTH * SCALE, GRID_HEIGHT * SCALE);
 
-            new StaticBrick(new Rect(gamebounds.getX() - SCALE, gamebounds.getY(), SCALE, gamebounds.getH()));
-            new StaticBrick(new Rect(gamebounds.getX()+gamebounds.getW(), gamebounds.getY(), SCALE, gamebounds.getH()));
-            new StaticBrick(new Rect(gamebounds.getX() - SCALE, gamebounds.getY() + gamebounds.getH(), gamebounds.getW() + SCALE*2, SCALE));
-
-        } catch (MaxObjectsException e) {
-            throw new MaxObjectsException("Increase MAX_OBJECTS");
-        }      
+        new StaticBrick(new Rect(gamebounds.getX() - SCALE, gamebounds.getY(), SCALE, gamebounds.getH()));
+        new StaticBrick(new Rect(gamebounds.getX()+gamebounds.getW(), gamebounds.getY(), SCALE, gamebounds.getH()));
+        new StaticBrick(new Rect(gamebounds.getX() - SCALE, gamebounds.getY() + gamebounds.getH(), gamebounds.getW() + SCALE*2, SCALE));     
     }
 }

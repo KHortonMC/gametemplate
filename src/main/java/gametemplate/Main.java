@@ -1,7 +1,6 @@
 package gametemplate;
 
-import gametemplate.gameobject.GameObject;
-import gametemplate.gameobject.MaxObjectsException; 
+import gametemplate.gameobject.GameObject; 
 import gametemplate.graphics.Vector2;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -59,7 +58,7 @@ public class Main extends Application {
         gameLoop.start();
     }
 
-    private void buildObjects() throws MaxObjectsException {
+    private void buildObjects() {
         Tetris.buildObjects();
     }
 
@@ -109,7 +108,6 @@ public class Main extends Application {
         // Create a Canvas for drawing
         Main.canvas = new Canvas(Tetris.SCREEN_WIDTH, Tetris.SCREEN_HEIGHT);
         Main.screenDelta = new Vector2(0,0);
-        GameObject.initialize();
         launch(args);
     }
 

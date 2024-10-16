@@ -26,7 +26,7 @@ public class TetrisPiece extends GameObject  {
     boolean flipped = false;
     Random random = null;
 
-    public TetrisPiece() throws MaxObjectsException {
+    public TetrisPiece() {
         super();
         this.isActive = true;
         this.isVisible = false;

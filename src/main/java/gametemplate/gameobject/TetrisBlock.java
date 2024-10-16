@@ -10,23 +10,22 @@ public class TetrisBlock extends GameObject {
     Rectangle brick = null;
 
     public static TetrisBlock getFreeBlock() {
-        for (int i = 0; i < objects.gameObjects.length; i++) {
-            if (objects.gameObjects[i] instanceof TetrisBlock
-                && !objects.gameObjects[i].isActive) {
-                objects.gameObjects[i].setActive(true);
-                objects.gameObjects[i].setVisible(true);
-                return (TetrisBlock)objects.gameObjects[i];
+        for (GameObject o : objects) {
+            if (o instanceof TetrisBlock && !o.isActive) {
+                o.setActive(true);
+                o.setVisible(true);
+                return (TetrisBlock)o;
             }
         }
         return null;
     }
 
-    public TetrisBlock() throws MaxObjectsException {
+    public TetrisBlock() {
         brick = new Rectangle();
         brick.setSize(new Vector2(Tetris.SCALE, Tetris.SCALE));
     }
 
-    public TetrisBlock(TetrisBlock copy) throws MaxObjectsException {
+    public TetrisBlock(TetrisBlock copy) {
         brick = new Rectangle();
         brick.setSize(new Vector2(Tetris.SCALE, Tetris.SCALE));
         brick.setColor(copy.brick.getColor());
