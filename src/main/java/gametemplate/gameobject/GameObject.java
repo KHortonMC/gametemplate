@@ -36,7 +36,7 @@ public abstract class GameObject implements Drawable {
     }
 
     protected GameObject() {
-        objects.addLast(this);
+        objects.add(this);
         this.id = lastID++;
     }
 
@@ -44,11 +44,14 @@ public abstract class GameObject implements Drawable {
         if (this.bounding == null || !this.isActive) return null;
 
         for (GameObject o : objects) {
-            if (o != null && o != this && o.isActive && o.bounding != null) {
-                if (this.bounding.doesCollide(o.bounding)) {
+            if (o != null 
+                && o != this 
+                && o.isActive 
+                && o.bounding != null 
+                && this.bounding.doesCollide(o.bounding)) {
                     return o;
                 }
-            }
+            
         }
 
         return null;
