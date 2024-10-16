@@ -3,6 +3,8 @@ package gametemplate.graphics;
 public final class Vector2 {
     double x = 0.0;
     double y = 0.0;
+
+    public static final Vector2 ZERO = new Vector2(0, 0);
     
     public Vector2() {
 

@@ -115,7 +115,6 @@ public class Main extends Application {
         // Create a Canvas for drawing
         Main.canvas = new Canvas(800, 600);
         Main.screenDelta = new Vector2(0,0);
-        GameObject.initialize();
         launch(args);
     }
 

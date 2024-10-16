@@ -19,6 +19,8 @@ public class BouncingBall extends GameObject {
 
         ball = new Circle(bounding);
         ball.setColor(Color.ORANGE);
+        this.setActive(true);
+        this.setVisible(true);
     }
 
     public void bump(Vector2 velocity) {
